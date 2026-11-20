@@ -33,6 +33,7 @@ Le numéro WhatsApp apparaît sur une annonce publiée parce que le déposant a 
 
 ## Avant une ouverture publique
 
+
 L'insertion anonyme convient à un prototype avec modération, mais ne limite pas à elle seule les soumissions automatisées. Avant d'ouvrir le formulaire au grand public, ajoutez un CAPTCHA ou une Edge Function avec limitation de débit et journalisation. Configurez aussi les politiques de sauvegarde/rétention, la politique de confidentialité et les tarifs réels des annonces sponsorisées.
 
 Les paiements mobiles ne sont pas encore connectés. Un fournisseur disponible en Côte d'Ivoire et ses identifiants marchands seront nécessaires pour encaisser les annonces sponsorisées.

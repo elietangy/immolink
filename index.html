@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f6f2" />
+    <meta name="description" content="Trouvez votre prochain logement ou confiez votre recherche à un démarcheur immobilier vérifié à Abidjan." />
+    <title>ImmoLink — Le bon bien, les bonnes personnes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="supabase-config.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="ImmoLink, accueil">
+        <span class="brand-mark" aria-hidden="true">⌂</span>
+        <span>immo<span class="brand-accent">link</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a class="nav-link active" href="#annonces">Explorer</a>
+        <a class="nav-link" href="#demarcheurs">Démarcheurs</a>
+        <a class="nav-link" href="#comment-ca-marche">Comment ça marche</a>
+      </nav>
+      <div class="header-actions">
+        <button class="text-button login-button" type="button" data-toast="La connexion sera bientôt disponible.">Se connecter</button>
+        <button class="button button-dark button-small" type="button" data-open-listing>+ Déposer une annonce</button>
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> L'immobilier, en toute confiance</div>
+          <h1>Le bon bien.<br />Les bonnes <span>personnes.</span></h1>
+          <p class="hero-description">Achetez, louez ou confiez votre recherche à ceux qui connaissent vraiment le terrain.</p>
+          <div class="hero-proof">
+            <div class="avatar-stack" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80" alt="" />
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" alt="" />
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80" alt="" />
+            </div>
+            <span>Un réseau de proximité pour<br /><strong>trouver son chez-soi.</strong></span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-image" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85" alt="Salon lumineux d'un appartement contemporain" />
+          <div class="hero-image-shade"></div>
+          <div class="hero-location"><span class="location-pin">⌖</span><span><strong>Cocody, Abidjan</strong><small>Votre prochain chapitre commence ici</small></span></div>
+          <div class="hero-price"><small>À partir de</small><strong>250 000 <span>FCFA / mois</span></strong></div>
+          <div class="floating-note"><span class="note-icon">✦</span><span><strong>Des pros du terrain</strong><small>au plus près de chez vous</small></span></div>
+        </div>
+      </section>
+
+      <section class="search-section" aria-label="Rechercher un bien">
+        <div class="search-tabs" role="tablist" aria-label="Type de recherche">
+          <button class="search-tab selected" type="button" role="tab" aria-selected="true" data-transaction="Louer">À louer</button>
+          <button class="search-tab" type="button" role="tab" aria-selected="false" data-transaction="Acheter">À acheter</button>
+          <button class="search-tab" type="button" role="tab" aria-selected="false" data-transaction="Terrain">Terrains</button>
+        </div>
+        <form class="search-bar" id="search-form">
+          <label class="search-field location-field">
+            <span class="field-icon">⌖</span>
+            <span class="field-content"><span class="field-label">Où cherchez-vous ?</span>
+              <select id="location-filter" aria-label="Quartier">
+                <option value="">Tous les quartiers</option>
+                <option value="Cocody">Cocody</option>
+                <option value="Marcory">Marcory</option>
+                <option value="Riviera">Riviera</option>
+                <option value="Bingerville">Bingerville</option>
+                <option value="Plateau">Plateau</option>
+              </select>
+            </span>
+          </label>
+          <label class="search-field type-field">
+            <span class="field-icon">⌂</span>
+            <span class="field-content"><span class="field-label">Type de bien</span>
+              <select id="type-filter" aria-label="Type de bien">
+                <option value="">Tous les biens</option>
+                <option value="Appartement">Appartement</option>
+                <option value="Villa">Villa</option>
+                <option value="Studio">Studio</option>
+                <option value="Terrain">Terrain</option>
+              </select>
+            </span>
+          </label>
+          <label class="search-field budget-field">
+            <span class="field-icon">₣</span>
+            <span class="field-content"><span class="field-label">Budget maximum</span>
+              <select id="budget-filter" aria-label="Budget maximum">
+                <option value="">Sans limite</option>
+                <option value="250000">250 000 FCFA</option>
+                <option value="500000">500 000 FCFA</option>
+                <option value="1000000">1 000 000 FCFA</option>
+              </select>
+            </span>
+          </label>
+          <button class="button button-orange search-submit" type="submit"><span>⌕</span> Rechercher</button>
+        </form>
+        <div class="popular-searches"><span>Recherches populaires</span><button type="button" data-quick-location="Cocody">Cocody</button><button type="button" data-quick-location="Riviera">Riviera</button><button type="button" data-quick-location="Marcory">Marcory</button><button type="button" data-quick-location="Bingerville">Bingerville</button></div>
+      </section>
+
+      <section class="listings-section" id="annonces">
+        <div class="section-heading">
+          <div><div class="eyebrow section-eyebrow">Une sélection pour vous</div><h2>Des lieux où il fait bon vivre<span>.</span></h2><p>Les annonces publiées par des propriétaires et des démarcheurs.</p><div class="listing-status-wrap"><p class="listing-status" id="listing-status" role="status" aria-live="polite">Aperçu de démonstration · aucune annonce réelle</p><button class="retry-listings" id="retry-listings" type="button" hidden>Réessayer</button></div></div>
+          <a class="view-all" href="#annonces">Voir toutes les annonces <span>↗</span></a>
+        </div>
+        <div class="listing-toolbar">
+          <div class="listing-count"><strong id="result-count">06</strong> biens à découvrir</div>
+          <div class="filter-chips" aria-label="Filtres rapides">
+            <button class="filter-chip active" type="button" data-quick-type="">Tous</button>
+            <button class="filter-chip" type="button" data-quick-type="Appartement">Appartements</button>
+            <button class="filter-chip" type="button" data-quick-type="Villa">Villas</button>
+            <button class="filter-chip" type="button" data-quick-type="Studio">Studios</button>
+          </div>
+          <button class="sort-button" type="button" id="sort-button">↕ <span>Trier : pertinence</span></button>
+        </div>
+        <div class="listing-grid" id="listing-grid" aria-live="polite"></div>
+        <div class="empty-state" id="empty-state" hidden><span>⌂</span><h3>Aucun bien trouvé pour l'instant</h3><p>Essayez un autre quartier ou ajustez votre budget.</p><button class="button button-dark button-small" id="reset-filters" type="button">Effacer les filtres</button></div>
+        <div class="load-more-wrap"><button class="button button-outline" id="show-more" type="button">Découvrir plus de biens <span>↓</span></button></div>
+      </section>
+
+      <section class="scout-banner" id="demarcheurs">
+        <div class="scout-visual">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=85" alt="Démarcheur accompagnant une visite immobilière" />
+          <div class="scout-stamp"><span>ImmoLink</span><strong>MEMBRE</strong><small>PRO DU TERRAIN</small></div>
+        </div>
+        <div class="scout-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Vous connaissez le terrain ?</div>
+          <h2>Votre réseau mérite<br />d'être <span>rémunéré.</span></h2>
+          <p>Rejoignez notre communauté de démarcheurs. Publiez vos biens, accompagnez des clients et développez votre activité avec des outils faits pour vous.</p>
+          <div class="scout-perks"><span><i>✓</i> Un profil professionnel visible</span><span><i>✓</i> Des demandes de clients</span><span><i>✓</i> Vous gardez la main sur vos honoraires</span></div>
+          <button class="button button-dark" type="button" data-toast="Les inscriptions des démarcheurs ouvrent bientôt.">Devenir démarcheur <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="how-section" id="comment-ca-marche">
+        <div class="section-heading centered-heading">
+          <div><div class="eyebrow section-eyebrow">Simple comme bonjour</div><h2>Du premier clic à la visite<span>.</span></h2></div>
+          <p>Un parcours plus simple, plus humain,<br />et sans perte de temps.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card"><span class="step-number">01</span><span class="step-icon">⌕</span><h3>Trouvez votre bien</h3><p>Filtrez par quartier, budget et type de bien. Les annonces sont contrôlées avant publication.</p></article>
+          <article class="step-card"><span class="step-number">02</span><span class="step-icon">♧</span><h3>Échangez en direct</h3><p>Contactez le propriétaire ou un démarcheur local, sans intermédiaire inutile.</p></article>
+          <article class="step-card"><span class="step-number">03</span><span class="step-icon">⌂</span><h3>Visitez sereinement</h3><p>Organisez une visite et avancez avec un interlocuteur qui connaît le quartier.</p></article>
+        </div>
+      </section>
+
+      <section class="revenue-section">
+        <div><div class="eyebrow"><span class="eyebrow-dot"></span> Pour propriétaires & professionnels</div><h2>Plus de visibilité.<br /><span>Plus d'opportunités.</span></h2><p>Les annonces à la une attirent plus de regards. Choisissez la formule adaptée à votre activité.</p></div>
+        <div class="revenue-card"><div class="revenue-card-top"><span>À LA UNE</span><span class="sparkle">✦</span></div><h3>Boostez votre annonce</h3><p>Mettez votre bien en avant et touchez plus d'acheteurs ou de locataires.</p><div class="revenue-price">Dès <strong>5 000 <small>FCFA</small></strong></div><button class="button button-orange" type="button" data-open-listing>Mettre mon bien en avant <span>→</span></button><small class="revenue-note">Tarifs indicatifs · Paiement bientôt disponible</small></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top"><a class="brand footer-brand" href="#"><span class="brand-mark">⌂</span><span>immo<span class="brand-accent">link</span></span></a><p>Le marché immobilier avance mieux<br />quand on avance ensemble.</p><div class="footer-links"><a href="#annonces">Explorer</a><a href="#demarcheurs">Professionnels</a><a href="#comment-ca-marche">À propos</a><a href="mailto:bonjour@immolink.ci">Nous contacter</a></div></div>
+      <div class="footer-bottom"><span>© 2026 ImmoLink. Tous droits réservés.</span><span>Fait avec soin à Abidjan <i>♥</i></span><div><a href="#conditions">Conditions d'utilisation</a><a href="#confidentialite">Confidentialité</a></div></div>
+    </footer>
+
+    <dialog class="listing-dialog" id="listing-dialog">
+      <form method="dialog" class="dialog-close-form"><button class="dialog-close" aria-label="Fermer">×</button></form>
+      <div class="dialog-icon">⌂</div><div class="eyebrow section-eyebrow">Publiez votre annonce</div><h2>Votre prochain acheteur<br />est peut-être ici<span>.</span></h2><p class="dialog-intro">Complétez votre annonce. Après vérification, elle pourra apparaître sur ImmoLink.</p>
+      <form id="listing-form" class="listing-form">
+        <label>Votre nom<input name="sellerName" autocomplete="name" minlength="2" maxlength="80" placeholder="Ex. Aïcha Koné" required /></label>
+        <label>Votre numéro WhatsApp<input name="contactPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" placeholder="Ex. +225 07 00 00 00 00" required /></label>
+        <label>Type de bien<select name="propertyType" required><option value="">Sélectionnez un type</option><option>Appartement</option><option>Villa</option><option>Studio</option><option>Terrain</option></select></label>
+        <label>Votre bien est à<select name="transactionType" required><option value="">Sélectionnez une option</option><option value="Louer">Louer</option><option value="Acheter">Vendre</option></select></label>
+        <label>Commune ou quartier<input name="neighborhood" minlength="2" maxlength="80" placeholder="Ex. Cocody, Riviera" required /></label>
+        <label>Adresse ou repère<input name="address" minlength="3" maxlength="140" placeholder="Ex. Riviera 3, près du carrefour" required /></label>
+        <label>Titre de l'annonce<input name="title" minlength="6" maxlength="100" placeholder="Ex. Appartement lumineux avec balcon" required /></label>
+        <label>Prix en FCFA<input name="price" type="number" min="1" max="10000000000" step="1000" inputmode="numeric" placeholder="Ex. 350000" required /></label>
+        <label>Surface en m²<input name="area" type="number" min="1" max="100000" step="1" inputmode="numeric" placeholder="Ex. 90" required /></label>
+        <label>Nombre de pièces <span class="optional-label">(facultatif pour un terrain)</span><input name="rooms" type="number" min="1" max="100" step="1" inputmode="numeric" placeholder="Ex. 3" /></label>
+        <label>Photo du bien <span class="optional-label">(lien HTTPS facultatif)</span><input name="imageUrl" type="url" maxlength="500" placeholder="https://..." /></label>
+        <label class="consent-label"><input name="phoneConsent" type="checkbox" required /><span>J'accepte que mon numéro WhatsApp soit visible sur mon annonce publiée, pour que les acheteurs ou locataires puissent me contacter.</span></label>
+        <p class="listing-form-status" id="listing-form-status" role="status" aria-live="polite"></p>
+        <button class="button button-orange" type="submit">Envoyer pour vérification <span>→</span></button>
+        <small>Votre annonce sera publiée uniquement après validation. Les données sont enregistrées par Supabase.</small>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
